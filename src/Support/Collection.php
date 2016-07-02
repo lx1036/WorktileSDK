@@ -12,12 +12,18 @@ use Traversable;
 
 class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonSerializable, \Serializable
 {
-
     /**
      * the collection data
      * @var array
      */
     protected $items = [];
+
+    public function __construct(array $items = [])
+    {
+        foreach ($items as $key => $item) {
+            $this->items[$key] = $item;
+        }
+    }
     /**
      * @param mixed $offset
      * @return mixed
@@ -109,5 +115,10 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     {
         // TODO: Implement jsonSerialize() method.
         return $this->items;
+    }
+
+    public function get($key, $default = null)
+    {
+        return Arr::get($this->items, $key, $default);
     }
 }

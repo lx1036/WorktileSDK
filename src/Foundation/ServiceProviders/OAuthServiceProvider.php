@@ -10,6 +10,7 @@ namespace Worktile\Foundation\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Worktile\OAuth\SocialiteManager;
 
 class OAuthServiceProvider implements ServiceProviderInterface
 {
@@ -17,5 +18,37 @@ class OAuthServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         // TODO: Implement register() method.
+        $pimple['oauth']       = function ($pimple) {
+            $callbackUrl       = $this->getCallbackUrl($pimple);
+            $scopes            = $pimple['config']->get('oauth.scopes', []);
+
+            /**
+             * @var $socialiteProvider \Worktile\OAuth\Providers\WorktileProvider
+             */
+            $provider = (new SocialiteManager([
+                'worktile' => [
+                    'client_id'     => $pimple['config']['client_id'],
+                    'client_secret' => $pimple['config']['client_secret'],
+                    'callback'      => $callbackUrl,
+                ]
+            ]))->driver('worktile');
+
+            if (! empty($scopes)) {
+                $provider->scopes($scopes);
+            }
+
+            return $provider;
+        };
     }
+
+    protected function getCallbackUrl($pimple)
+    {
+        $callbackUrl = $pimple['config']->get('oauth.callback');
+        if (strpos($callbackUrl, 'http') === 0) {
+            return $callbackUrl;
+        }
+
+    }
+
+
 }

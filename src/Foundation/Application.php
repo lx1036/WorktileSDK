@@ -31,13 +31,28 @@ class Application extends Container
     {
         parent::__construct();
 
+        $this['config'] = function () use ($config) {
+            return new Config($config);
+        };
+
         $this->registerProviders();
+        $this->registerBase();
     }
 
+    /**
+     * register the providers
+     */
     protected function registerProviders()
     {
         foreach ($this->providers as $provider) {
             $this->register(new $provider());
         }
+    }
+
+    protected function registerBase()
+    {
+        $this['request'] = function () {
+            return Request::createFromGlobals();
+        };
     }
 }
