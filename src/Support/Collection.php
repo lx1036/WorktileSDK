@@ -14,12 +14,18 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
 {
 
     /**
+     * the collection data
+     * @var array
+     */
+    protected $items = [];
+    /**
      * @param mixed $offset
      * @return mixed
      */
     public function offsetExists($offset)
     {
         // TODO: Implement offsetExists() method.
+        return isset($this->items[$offset]);
     }
 
     /**
@@ -29,6 +35,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function offsetGet($offset)
     {
         // TODO: Implement offsetGet() method.
+        return isset($this->items[$offset]) ?$this->items[$offset] :null;
     }
 
     /**
@@ -39,6 +46,11 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function offsetSet($offset, $value)
     {
         // TODO: Implement offsetSet() method.
+        if (is_null($offset)) {
+            $this->items[] = $value;
+        } else {
+            $this->items[$offset] = $value;
+        }
     }
 
     /**
@@ -48,6 +60,9 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function offsetUnset($offset)
     {
         // TODO: Implement offsetUnset() method.
+        if ($this->offsetExists($offset)) {
+            unset($this->items[$offset]);
+        }
     }
 
     /**
