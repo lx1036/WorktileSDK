@@ -71,6 +71,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function count()
     {
         // TODO: Implement count() method.
+        return count($this->items);
     }
 
     /**
@@ -79,6 +80,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function getIterator()
     {
         // TODO: Implement getIterator() method.
+        return new \ArrayIterator($this->items);
     }
 
     /**
@@ -87,7 +89,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function serialize()
     {
         // TODO: Implement serialize() method.
-
+        return serialize($this->items);
     }
 
     /**
@@ -97,6 +99,7 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     public function unserialize($serialized)
     {
         // TODO: Implement unserialize() method.
+        $this->items = unserialize($serialized);
     }
 
     /**
@@ -105,5 +108,6 @@ class Collection implements \ArrayAccess, \Countable, \IteratorAggregate, \JsonS
     function jsonSerialize()
     {
         // TODO: Implement jsonSerialize() method.
+        return $this->items;
     }
 }
