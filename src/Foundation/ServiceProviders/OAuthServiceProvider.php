@@ -23,7 +23,7 @@ class OAuthServiceProvider implements ServiceProviderInterface
             $scopes            = $pimple['config']->get('oauth.scopes', []);
 
             /**
-             * @var $socialiteProvider \Worktile\OAuth\Providers\WorktileProvider
+             * @var $provider \Worktile\OAuth\Providers\WorktileProvider
              */
             $provider = (new SocialiteManager([
                 'worktile' => [
