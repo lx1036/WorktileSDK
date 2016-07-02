@@ -1,0 +1,17 @@
+{
+    "require": {
+        "php": ">=5.5.9",
+        "pimple/pimple": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Worktile\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worktile\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}
