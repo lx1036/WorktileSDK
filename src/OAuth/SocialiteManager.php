@@ -38,7 +38,6 @@ class SocialiteManager implements Factory
         return $this->drivers[$driver];
     }
 
-
     protected function createDefaultRequest()
     {
         return null;

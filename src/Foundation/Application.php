@@ -9,6 +9,7 @@
 namespace Worktile\Foundation;
 
 use Pimple\Container;
+use Symfony\Component\HttpFoundation\Request;
 
 class Application extends Container
 {

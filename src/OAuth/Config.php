@@ -10,6 +10,8 @@ namespace Worktile\OAuth;
 
 class Config
 {
+    public $config;
+
     public function __construct($config)
     {
         $this->config = $config;

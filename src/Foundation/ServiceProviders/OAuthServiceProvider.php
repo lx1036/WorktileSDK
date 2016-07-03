@@ -48,6 +48,8 @@ class OAuthServiceProvider implements ServiceProviderInterface
             return $callbackUrl;
         }
 
+        $baseUrl = $pimple['request']->getSchemeAndHttpHost();
+        return $baseUrl.'/'.ltrim($callbackUrl, '/');
     }
 
 
