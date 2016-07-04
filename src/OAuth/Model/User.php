@@ -17,7 +17,7 @@ class User
      * user id
      * @var $id
      */
-    protected $id;
+    protected $uid;
 
     /**
      * user name

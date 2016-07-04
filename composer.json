@@ -15,5 +15,8 @@
             "Worktile\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "monolog/monolog": "^1.20"
+    }
 }

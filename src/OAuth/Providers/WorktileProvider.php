@@ -96,14 +96,10 @@ class WorktileProvider implements Providers
         if ($this->hasInvalidState()) {
             throw new InvalidStateException;
         }
-
         $token = $this->getAccessToken($this->getCode());
 
-
-//        return $token;
-        return $this->getUserByToken($token);
-
-//        return $this->mapUserToObject($this->getUserByToken($token));
+//        return $this->getUserByToken($token);
+        return $this->mapUserToObject($this->getUserByToken($token));
     }
 
     protected function useState()
@@ -124,9 +120,9 @@ class WorktileProvider implements Providers
     protected function getAuthFields($state)
     {
         $fields = array_merge([
-            'client_id'  => $this->clientId,
+            'client_id'    => $this->clientId,
             'redirect_uri' => $this->callback,
-            'display'    => 'web',
+            'display'      => 'web',
         ], $this->customParameters);
 
         if ($this->useState()) {
@@ -210,7 +206,7 @@ class WorktileProvider implements Providers
     protected function mapUserToObject($user)
     {
         return (new User())->setUser($user)->map([
-            'id'           => $user['id'],
+            'uid'          => $user['uid'],
             'name'         => $user['name'],
             'display_name' => $user['display_name'],
             'email'        => $user['email'],
