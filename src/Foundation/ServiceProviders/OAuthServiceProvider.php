@@ -22,6 +22,8 @@ class OAuthServiceProvider implements ServiceProviderInterface
             $callbackUrl       = $this->getCallbackUrl($pimple);
             $scopes            = $pimple['config']->get('oauth.scopes', []);
 
+
+//            var_dump($pimple['config']['client_id'],$pimple['config']['client_secret'],$callbackUrl);
             /**
              * @var $provider \Worktile\OAuth\Providers\WorktileProvider
              */
@@ -31,7 +33,7 @@ class OAuthServiceProvider implements ServiceProviderInterface
                     'client_secret' => $pimple['config']['client_secret'],
                     'callback'      => $callbackUrl,
                 ]
-            ]))->driver('worktile');
+            ], null))->driver('worktile');
 
             if (! empty($scopes)) {
                 $provider->scopes($scopes);
@@ -49,6 +51,7 @@ class OAuthServiceProvider implements ServiceProviderInterface
         }
 
         $baseUrl = $pimple['request']->getSchemeAndHttpHost();
+//        var_dump($baseUrl);//http://worktilesdk.app
         return $baseUrl.'/'.ltrim($callbackUrl, '/');
     }
 

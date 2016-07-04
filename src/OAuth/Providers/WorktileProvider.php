@@ -82,6 +82,7 @@ class WorktileProvider implements Providers
             $this->request->getSession()->set(static::STATE, $state = Str::random(16));
         }
 
+//        var_dump($this->getAuthUrl($state));
         return new RedirectResponse($this->getAuthUrl($state));
     }
 
@@ -98,7 +99,11 @@ class WorktileProvider implements Providers
 
         $token = $this->getAccessToken($this->getCode());
 
-        return $this->mapUserToObject($this->getUserByToken($token));
+
+//        return $token;
+        return $this->getUserByToken($token);
+
+//        return $this->mapUserToObject($this->getUserByToken($token));
     }
 
     protected function useState()
@@ -119,8 +124,8 @@ class WorktileProvider implements Providers
     protected function getAuthFields($state)
     {
         $fields = array_merge([
-            'client_id' => $this->clientId,
-            'direct_uri' => $this->callback,
+            'client_id'  => $this->clientId,
+            'redirect_uri' => $this->callback,
             'display'    => 'web',
         ], $this->customParameters);
 
@@ -184,7 +189,7 @@ class WorktileProvider implements Providers
     {
         $userUrl  = $this->getUserUrl();
         $response = $this->getHttpClient()->get($userUrl, [
-            'header' => [
+            'headers' => [
                 'Content-Type' => 'application/json',
                 static::TOKEN  => $token,
             ]

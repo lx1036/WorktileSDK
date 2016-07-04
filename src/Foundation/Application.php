@@ -36,7 +36,9 @@ class Application extends Container
             return new Config($config);
         };
 
+        //traverse the providers register methods
         $this->registerProviders();
+        // add some helper object
         $this->registerBase();
     }
 

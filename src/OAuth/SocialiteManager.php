@@ -9,6 +9,7 @@
 namespace Worktile\OAuth;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Worktile\OAuth\Contracts\Factory;
 
 class SocialiteManager implements Factory
@@ -40,7 +41,12 @@ class SocialiteManager implements Factory
 
     protected function createDefaultRequest()
     {
-        return null;
+        $request = Request::createFromGlobals();
+        $session = new Session();
+
+        $request->setSession($session);
+
+        return $request;
     }
 
     /**
