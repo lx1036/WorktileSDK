@@ -10,6 +10,7 @@ namespace Worktile\Foundation\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Worktile\Team\TeamManager;
 
 class TeamServiceProvider implements ServiceProviderInterface
 {
@@ -17,5 +18,8 @@ class TeamServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         // TODO: Implement register() method.
+        $pimple['team'] = function ($pimple) {
+            return new TeamManager($pimple['access_token']);
+        };
     }
 }
