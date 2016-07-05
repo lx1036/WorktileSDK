@@ -22,15 +22,13 @@ class OAuthServiceProvider implements ServiceProviderInterface
             $callbackUrl       = $this->getCallbackUrl($pimple);
             $scopes            = $pimple['config']->get('oauth.scopes', []);
 
-
-//            var_dump($pimple['config']['client_id'],$pimple['config']['client_secret'],$callbackUrl);
             /**
              * @var $provider \Worktile\OAuth\Providers\WorktileProvider
              */
             $provider = (new SocialiteManager([
                 'worktile' => [
-                    'client_id'     => $pimple['config']['client_id'],
-                    'client_secret' => $pimple['config']['client_secret'],
+                    'client_id'     => $pimple['config']['oauth.client_id'],
+                    'client_secret' => $pimple['config']['oauth.client_secret'],
                     'callback'      => $callbackUrl,
                 ]
             ], null))->driver('worktile');

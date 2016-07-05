@@ -8,6 +8,8 @@
 
 namespace Worktile\OAuth\Model;
 
+use Doctrine\Common\Cache\FilesystemCache;
+
 class User
 {
 
@@ -62,6 +64,12 @@ class User
     protected $online;
 
     /**
+     * the access_token from the worktile server
+     * @var
+     */
+    protected $token;
+
+    /**
      * set the raw user from the provider
      * @param $user
      * @return \Worktile\OAuth\Model\User
@@ -84,5 +92,27 @@ class User
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $this->getCache()->save('access_token', $token);
+        $this->token = $token;
+    }
+
+    public function getCache()
+    {
+        return new FilesystemCache(sys_get_temp_dir());
     }
 }

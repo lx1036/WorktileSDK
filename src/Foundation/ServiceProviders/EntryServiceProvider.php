@@ -10,6 +10,7 @@ namespace Worktile\Foundation\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Worktile\Entry\EntryManager;
 
 class EntryServiceProvider implements ServiceProviderInterface
 {
@@ -17,5 +18,8 @@ class EntryServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         // TODO: Implement register() method.
+        $pimple['entry'] = function ($pimple) {
+            return new EntryManager($pimple['access_token']);
+        };
     }
 }

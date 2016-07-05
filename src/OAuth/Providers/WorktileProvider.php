@@ -54,7 +54,7 @@ class WorktileProvider implements Providers
 
     /**
      * the guzzle http client
-     * @var null
+     * @var $httpClient \GuzzleHttp\Client
      */
     protected $httpClient = null;
 
@@ -97,9 +97,9 @@ class WorktileProvider implements Providers
             throw new InvalidStateException;
         }
         $token = $this->getAccessToken($this->getCode());
-
-//        return $this->getUserByToken($token);
-        return $this->mapUserToObject($this->getUserByToken($token));
+        $user  =  $this->mapUserToObject($this->getUserByToken($token));
+        $user->setToken($token);
+        return $user;
     }
 
     protected function useState()
