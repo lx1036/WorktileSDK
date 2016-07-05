@@ -16,7 +16,7 @@ class Entry extends AbstractAPI
     /**
      *  Get all entries for the specified project
      */
-    const PROJECT_ENTRY = 'https://api.worktile.com/v1/entries';
+    const PROJECT_ENTRIES = 'https://api.worktile.com/v1/entries';
 
     /**
      * Create the entry
@@ -49,7 +49,7 @@ class Entry extends AbstractAPI
      */
     public function all()
     {
-        return $this->queryHttpResponse(static::PROJECT_ENTRY, 'GET');
+        return $this->queryHttpResponse(static::PROJECT_ENTRIES, 'GET');
     }
 
     /**

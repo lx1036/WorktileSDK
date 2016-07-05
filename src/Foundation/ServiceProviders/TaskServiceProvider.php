@@ -10,12 +10,15 @@ namespace Worktile\Foundation\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Worktile\Task\TaskManager;
 
 class TaskServiceProvider implements ServiceProviderInterface
 {
 
     public function register(Container $pimple)
     {
-        // TODO: Implement register() method.
+        $pimple['task'] = function ($pimple) {
+            return new TaskManager($pimple['access_token']);
+        };
     }
 }
