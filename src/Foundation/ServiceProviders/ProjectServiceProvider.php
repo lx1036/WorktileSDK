@@ -11,6 +11,7 @@ namespace Worktile\Foundation\ServiceProviders;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Worktile\Project\ProjectManager;
 
 class ProjectServiceProvider implements ServiceProviderInterface
 {
@@ -18,5 +19,8 @@ class ProjectServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         // TODO: Implement register() method.
+        $pimple['project'] = function ($pimple) {
+            return new ProjectManager($pimple['access_token']);
+        };
     }
 }
