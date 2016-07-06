@@ -9,6 +9,7 @@
 namespace Worktile\Core;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 abstract class AbstractAPI
 {
@@ -21,7 +22,7 @@ abstract class AbstractAPI
 
     /**
      * The key to open api
-     * @var $token string
+     * @var $token \Worktile\Core\AccessToken
      */
     protected $token;
     /**
@@ -43,13 +44,14 @@ abstract class AbstractAPI
      */
     public function queryHttpResponse($url, $method, $parameters = [])
     {
+        $postKey = (version_compare(ClientInterface::VERSION, '6') === 1) ? 'form_params' : 'body';
         $method = strtolower($method);
         $response = $this->getHttpClient()->$method($url, [
             'headers' => [
                 'Content-Type' => 'application/json',
-                'access_token' => $this->token,
+                'access_token' => $this->token->getToken(),
             ],
-            'body' => $parameters,
+            $postKey => $parameters,
         ]);
 
         return json_decode($response->getBody(), true);

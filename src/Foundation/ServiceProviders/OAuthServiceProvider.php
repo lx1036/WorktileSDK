@@ -17,7 +17,6 @@ class OAuthServiceProvider implements ServiceProviderInterface
 
     public function register(Container $pimple)
     {
-        // TODO: Implement register() method.
         $pimple['oauth']       = function ($pimple) {
             $callbackUrl       = $this->getCallbackUrl($pimple);
             $scopes            = $pimple['config']->get('oauth.scopes', []);
@@ -27,8 +26,8 @@ class OAuthServiceProvider implements ServiceProviderInterface
              */
             $provider = (new SocialiteManager([
                 'worktile' => [
-                    'client_id'     => $pimple['config']['oauth.client_id'],
-                    'client_secret' => $pimple['config']['oauth.client_secret'],
+                    'client_id'     => $pimple['config']->get('oauth.client_id', []),
+                    'client_secret' => $pimple['config']->get('oauth.client_secret', []),
                     'callback'      => $callbackUrl,
                 ]
             ], null))->driver('worktile');

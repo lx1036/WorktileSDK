@@ -10,6 +10,7 @@ namespace Worktile\Core;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\FilesystemCache;
+use Worktile\Foundation\Application;
 
 class AccessToken
 {
@@ -34,11 +35,12 @@ class AccessToken
      */
     protected $app;
 
-    public function __construct($clientId, $clientSecret, Cache $cache = null)
+    public function __construct($clientId, $clientSecret, $app, Cache $cache = null)
     {
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
         $this->cache        = $cache;
+        $this->app          = $app;
     }
 
     public function getToken($forceRefresh = false)
@@ -78,4 +80,8 @@ class AccessToken
         return $user->getToken();
     }
 
+    public function getUserFromToken()
+    {
+        
+    }
 }

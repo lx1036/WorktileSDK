@@ -8,8 +8,10 @@
 
 namespace Worktile\Foundation;
 
+use Doctrine\Common\Cache\FilesystemCache;
 use Pimple\Container;
 use Symfony\Component\HttpFoundation\Request;
+use Worktile\Core\AccessToken;
 
 class Application extends Container
 {
@@ -56,6 +58,19 @@ class Application extends Container
     {
         $this['request'] = function () {
             return Request::createFromGlobals();
+        };
+
+        $this['cache'] = function () {
+            return new FilesystemCache(sys_get_temp_dir());
+        };
+
+        $this['access_token'] = function () {
+            return new AccessToken(
+                $this['config']['client_id'],
+                $this['config']['client_secret'],
+                $this,
+                $this['cache']
+            );
         };
     }
 }

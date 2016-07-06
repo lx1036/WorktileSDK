@@ -97,7 +97,7 @@ class WorktileProvider implements Providers
             throw new InvalidStateException;
         }
         $token = $this->getAccessToken($this->getCode());
-        $user  =  $this->mapUserToObject($this->getUserByToken($token));
+        $user  = $this->mapUserToObject($this->getUserByToken($token));
         $user->setToken($token);
         return $user;
     }

@@ -71,5 +71,4 @@ class Team extends AbstractAPI
     {
         return $this->queryHttpResponse(sprintf(static::TEAM_PROJECTS, $teamId), 'GET');
     }
-
 }
